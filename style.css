@@ -275,13 +275,17 @@ select option {
 
 .search-controls {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
     flex: 1;
-    max-width: 800px;
+    max-width: 100%;
 }
 
-.search-controls .input-group { flex: 1; }
+.search-controls .input-group { 
+    flex: 1; 
+    min-width: 200px;
+}
 
 .btn-favorite-filter {
     background: transparent;
@@ -547,6 +551,54 @@ select option {
     text-decoration-color: var(--accent-color);
 }
 
+/* Badge pro Web */
+.card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.web-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.web-badge.loading { background: rgba(255,255,255,0.1); color: var(--text-secondary); }
+.web-badge.has-web { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669; }
+.web-badge.no-web { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #dc2626; }
+
+/* Tlačítka dole v kartě */
+.action-buttons-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn-discard {
+    flex: 1;
+    background: rgba(156, 163, 175, 0.2); /* Šedá */
+    color: #e5e7eb;
+    min-width: 120px;
+}
+.btn-discard:hover {
+    background: rgba(239, 68, 68, 0.3); /* Při najetí mírně červená */
+    color: #f87171;
+}
+
+.btn-prompt {
+    flex: 2;
+    background: var(--accent-color);
+    color: white;
+}
+.btn-prompt:hover {
+    background: var(--accent-hover);
+}
+
+
 /* Nejnovější recenze */
 .review-box {
     background: rgba(0, 0, 0, 0.2);
@@ -579,6 +631,7 @@ select option {
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

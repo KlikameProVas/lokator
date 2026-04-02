@@ -76,17 +76,31 @@
                 </div>
 
                 <div class="input-group">
+                    <i class="ph ph-sort-ascending"></i>
+                    <select id="sort-select">
+                        <option value="best_rating">Od nejlepšího</option>
+                        <option value="worst_rating">Od nejhoršího</option>
+                        <option value="most_reviews">Nejvíce recenzí</option>
+                        <option value="least_reviews">Nejméně recenzí</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
                     <i class="ph ph-magnifying-glass"></i>
                     <input type="text" id="search-query" placeholder="Co hledáte? (např. Veterina)">
                 </div>
 
+                <label class="toggle-switch" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="checkbox" id="no-web-filter" style="width: auto;">
+                    <span style="font-size: 0.85rem; white-space: nowrap;">Zobrazit pouze firmy BEZ webu</span>
+                </label>
+
                 <button id="search-btn" class="btn-primary">
                     Vyhledat
                 </button>
-                
-                <button id="favorite-filter-btn" class="btn-favorite-filter" title="Zobrazit pouze oblíbené">
-                    <i class="ph ph-heart"></i>
-                    Oblíbené
+
+                <button id="template-btn" class="btn-icon" title="Nastavení HTML šablony">
+                    <i class="ph ph-code"></i>
                 </button>
 
                 <button id="settings-btn" class="btn-icon" title="Nastavení API">
@@ -110,9 +124,14 @@
 
             <!-- Pravý sloupec: Výsledky -->
             <div class="results-container glass-panel">
-                <div class="results-header">
-                    <h2>Výsledky hledání</h2>
-                    <span id="results-count" class="badge hidden">0 nalezeno</span>
+                <div class="results-header" style="flex-wrap: wrap; gap: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <h2 style="margin: 0;">Výsledky hledání</h2>
+                        <span id="results-count" class="badge hidden">0 nalezeno</span>
+                    </div>
+                    <button id="export-csv-btn" class="btn-outline hidden" style="border-color: #10b981; color: #10b981;">
+                        <i class="ph ph-download-simple"></i> Export dat (CSV)
+                    </button>
                 </div>
                 
                 <!-- Indikátor načítání -->
@@ -150,6 +169,47 @@
 
         </div>
     </main>
+
+    <!-- Modální okno pro Prompt -->
+    <div id="prompt-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel" style="max-width: 600px; max-height: 90vh;">
+            <div class="modal-header" style="justify-content: space-between;">
+                <h2>Prompt pro firmu: <span id="prompt-company-name"></span></h2>
+                <button id="close-prompt-modal" class="btn-icon">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            
+            <textarea id="prompt-textarea" rows="15" style="width: 100%; background: rgba(0,0,0,0.3); color: var(--text-primary); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 1rem; resize: vertical; font-family: monospace;" readonly></textarea>
+            
+            <button id="copy-prompt-btn" class="btn-primary" style="width: 100%; justify-content: center;">
+                <i class="ph ph-copy"></i>
+                Zkopírovat do schránky
+            </button>
+        </div>
+    </div>
+
+    <!-- Modální okno pro šablonu -->
+    <div id="template-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel" style="max-width: 650px;">
+            <div class="modal-header">
+                <i class="ph ph-code"></i>
+                <h2>Výchozí HTML Šablona</h2>
+            </div>
+            <p>Máte vytvořenou vlastní HTML šablonu, do které se mají informace o firmě plnit?</p>
+            
+            <textarea id="template-textarea" rows="10" placeholder="Sem vložte svůj případný výchozí HTML kód..." style="width: 100%; background: rgba(0,0,0,0.3); color: var(--text-primary); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 1rem; resize: vertical; font-family: monospace;"></textarea>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                <button id="save-no-template-btn" class="btn-outline" style="flex: 1; border-color: #ef4444; color: #f87171;">
+                    Nemám (Tvořit od nuly)
+                </button>
+                <button id="save-template-btn" class="btn-primary" style="flex: 2;">
+                    Uložit HTML a používat jej
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- JS Skripty budou načteny asynchronně z app.js -->
     <script src="app.js"></script>
